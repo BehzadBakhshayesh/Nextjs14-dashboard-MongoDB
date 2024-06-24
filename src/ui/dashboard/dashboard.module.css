@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  gap: 20px;
+}
+.menu {
+  flex: 1;
+  background-color: var(--bgSoft);
+}
+.content {
+  flex: 4;
+}
+
+.wrapper {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+.main {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.cards {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
+.side {
+}
