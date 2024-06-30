@@ -20,7 +20,7 @@ const Page = () => {
         <label>Phone</label>
         <input type="text" name="phone" placeholder="+12345678" />
         <label>Username</label>
-        <textarea type="text" name="username" placeholder="John Doe" />
+        <textarea type="text" name="address" placeholder="New" />
       </div>
     </div>
   );
