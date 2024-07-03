@@ -7,16 +7,18 @@ import Link from "next/link";
 
 const page = async ({ searchParams }) => {
   const q = searchParams?.q ?? "";
-  const users = await fetchUsers(q);
-
+  const page = searchParams?.page ?? 1;
+  const { count, users } = await fetchUsers(q, page);
   return (
     <div className={styles.container}>
       <div className={styles.top}>
         <Search placeholder="Search for a user.." />
+
         <Link href="/dashboard/users/add">
           <button className={styles.addButton}>Add New</button>
         </Link>
       </div>
+
       <table className={styles.table}>
         <thead>
           <tr>
@@ -61,7 +63,8 @@ const page = async ({ searchParams }) => {
           ))}
         </tbody>
       </table>
-      <Pagination />
+
+      <Pagination count={count} />
     </div>
   );
 };
