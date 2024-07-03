@@ -17,7 +17,11 @@ const Search = ({ placeholder }) => {
         className={styles.input}
         onChange={(e) => {
           const params = new URLSearchParams(serchParams);
-          params.set("q", e.target.value);
+          if (e.target.value) {
+            params.set("q", e.target.value);
+          } else {
+            params.delete("q");
+          }
           replace(`${pathName}?${params}`);
         }}
       />
