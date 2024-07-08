@@ -1,31 +1,23 @@
 import styles from "@/ui/dashboard/products/addProduct/addProduct.module.css";
 
-const Page = () => {
+const AddProductPage = () => {
   return (
     <div className={styles.container}>
       <form className={styles.form}>
-        <input type="text" placeholder="username" name="username" required />
-        <input type="email" placeholder="email" name="email" />
-        <input
-          type="password"
-          placeholder="password"
-          name="password"
-          required
-        />
-        <input type="text" placeholder="phone" name="phone" />
-        <select name="isAdmin" id="isAdmin">
-          <option value={false}>Is Admin?</option>
-          <option value={true}>Yes</option>
-          <option value={false}>No</option>
+        <input type="text" placeholder="title" name="title" required />
+        <select name="cat" id="cat">
+          <option value="general">chose a categori</option>
+          <option value="kitchen">kitchen</option>
+          <option value="phone">phone</option>
+          <option value="computer">computer</option>
         </select>
-        <select name="isActive" id="isActive">
-          <option value={false}>Is Active?</option>
-          <option value={true}>Yes</option>
-          <option value={false}>No</option>
-        </select>
+        <input type="number" placeholder="price" name="price" />
+        <input type="number" placeholder="stock" name="stock" />
+        <input type="text" placeholder="color" name="color" />
+        <input type="text" placeholder="size" name="size" />
         <textarea
-          name="address"
-          id="address"
+          name="desc"
+          id="desc"
           rows="16"
           placeholder="Description"
         ></textarea>
@@ -35,4 +27,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default AddProductPage;
