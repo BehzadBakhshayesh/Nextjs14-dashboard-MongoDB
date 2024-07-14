@@ -64,6 +64,37 @@ export const addUser = async (formData) => {
   revalidatePath("/dashboard/users");
   redirect("/dashboard/users");
 };
+export const updateUser = async (formData) => {
+  const { id, username, email, password, phone, isAdmin, isActive } =
+    Object.fromEntries(formData);
+
+  try {
+    connectToDB();
+    const updateFields = {
+      username,
+      email,
+      password,
+      phone,
+      isAdmin,
+      isActive,
+    };
+    Object.keys(updateFields).forEach((key) => {
+      if (updateFields[key] === "" || updateFields[key] === undefined) {
+        delete updateFields[key];
+      }
+    });
+    if (id.match(/^[0-9a-fA-F]{24}$/)) {
+      await User.findByIdAndUpdate(id, updateFields);
+    } else {
+      console.log("id is not valid", id);
+    }
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
+  revalidatePath("/dashboard/users");
+  redirect("/dashboard/users");
+};
 
 export const deleteUser = async (formData) => {
   const { id } = Object.fromEntries(formData);

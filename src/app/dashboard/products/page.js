@@ -3,13 +3,13 @@ import Pagination from "@/ui/dashboard/pagination/pagination";
 import Search from "@/ui/dashboard/search/search";
 import Image from "next/image";
 import Link from "next/link";
-import { fetchProduct } from "@/lib/data";
+import { fetchProducts } from "@/lib/data";
 import { deleteProduct } from "@/lib/actions";
 
 const page = async ({ searchParams }) => {
   const q = searchParams?.q ?? "";
   const page = searchParams?.page ?? 1;
-  const { count, products } = await fetchProduct(q, page);
+  const { count, products } = await fetchProducts(q, page);
   return (
     <div className={styles.container}>
       <div className={styles.top}>
