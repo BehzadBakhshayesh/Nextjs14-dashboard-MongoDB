@@ -28,6 +28,38 @@ export const addProduct = async (formData) => {
   redirect("/dashboard/products");
 };
 
+export const updateProduct = async (formData) => {
+  const { id, title, desc, price, stock, color, size } =
+    Object.fromEntries(formData);
+
+  try {
+    connectToDB();
+    const updateFields = {
+      title,
+      desc,
+      price,
+      stock,
+      color,
+      size,
+    };
+    Object.keys(updateFields).forEach((key) => {
+      if (updateFields[key] === "" || updateFields[key] === undefined) {
+        delete updateFields[key];
+      }
+    });
+    if (id.match(/^[0-9a-fA-F]{24}$/)) {
+      await Product.findByIdAndUpdate(id, updateFields);
+    } else {
+      console.log("id is not valid", id);
+    }
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
+  revalidatePath("/dashboard/products");
+  redirect("/dashboard/products");
+};
+
 export const deleteProduct = async (formData) => {
   const { id } = Object.fromEntries(formData);
   try {
@@ -64,6 +96,7 @@ export const addUser = async (formData) => {
   revalidatePath("/dashboard/users");
   redirect("/dashboard/users");
 };
+
 export const updateUser = async (formData) => {
   const { id, username, email, password, phone, isAdmin, isActive } =
     Object.fromEntries(formData);
