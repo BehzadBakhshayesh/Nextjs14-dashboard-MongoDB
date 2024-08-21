@@ -5,6 +5,7 @@ import { Product, User } from "./models";
 import { connectToDB } from "./utils";
 import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
+import { signIn } from "@/auth";
 
 export const addProduct = async (formData) => {
   const { title, desc, price, stock, color, size } =
@@ -116,6 +117,7 @@ export const updateUser = async (formData) => {
         delete updateFields[key];
       }
     });
+
     if (id.match(/^[0-9a-fA-F]{24}$/)) {
       await User.findByIdAndUpdate(id, updateFields);
     } else {
@@ -131,6 +133,7 @@ export const updateUser = async (formData) => {
 
 export const deleteUser = async (formData) => {
   const { id } = Object.fromEntries(formData);
+
   try {
     connectToDB();
     await User.findByIdAndDelete(id);
@@ -139,4 +142,15 @@ export const deleteUser = async (formData) => {
     throw new Error(error);
   }
   revalidatePath("/dashboard/users");
+};
+
+export const authenticate = async (formData) => {
+  const { username, password } = Object.fromEntries(formData);
+
+  try {
+    await signIn("credentials", { username, password });
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
 };
